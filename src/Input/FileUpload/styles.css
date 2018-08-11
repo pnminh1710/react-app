@@ -14,16 +14,20 @@
 }
 
 .upload-label {
-  font-size: 1.25em;
+  line-height: 92px;
+  font-size: 60px;
   font-weight: 700;
-  color: white;
-  background-color: black;
   display: inline-block;
+  color: #d3d3d3;
   cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border: 4px solid #d3d3d3;
 }
 
 .upload-label:hover {
-  background-color: red;
+  border-color: #111;
+  color: #111;
 }
 
 .upload-label:focus {
@@ -37,13 +41,13 @@
   text-align: center;
   border-radius: 10%;
   overflow: hidden;
-  border: 4px dashed #111;
-  opacity: 0.6;
+  border: 4px solid #d3d3d3;
   margin-left: 8px;
 }
 
 .container:hover {
-  opacity: 1;
+  border-color: #111;
+  color: #111;
 }
 
 .container img {
@@ -51,4 +55,8 @@ min-width: 100px;
 max-width: none;
 height: 100px;
 margin: 0 -100%;
+}
+
+.error {
+  color: red;
 }
