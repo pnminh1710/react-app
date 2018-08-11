@@ -4,6 +4,7 @@ import './styles.css';
 const ERROR_MESSAGE = 'Some of your file(s) does not match, please re-upload';
 const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 
+
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,27 @@ class ImageUpload extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.closePreview = this.closePreview.bind(this);
+    this.displayPreview = this.displayPreview.bind(this);
+  }
+
+  displayPreview(files) {
+    const imgList = files.map((file, index) => {
+      return (
+        <div key={index} className="container">
+          <img alt={file.name} src={file.path} />
+          <span id={`${index}-${file.path}`} className="close-preview" onClick={(event) => this.closePreview(event)}>✖</span>
+        </div>
+      );
+    });
+    return imgList;
+  }
+
+  closePreview(event) {
+    const { files } = this.state;
+    const removeIndex = event.target.id.split('-')[0];
+    files.splice(removeIndex, 1);
+    const displayFiles = this.displayPreview(files);
+    this.setState({ files, displayFiles });
   }
 
   handleChange(event) {
@@ -39,23 +61,13 @@ class ImageUpload extends React.Component {
     if (this.state.files.length > 0) {
       addedFiles = storedFiles.concat(addedFiles);
     }
-    const imgList = addedFiles.map((file, index) => {
-      return (
-        <div key={index} className="container">
-          <img alt={file.name} src={file.path} />
-          <span className="close-preview" onClick={this.closePreview}>✖</span>
-        </div>
-      );
-    });
+    const imgList = this.displayPreview(addedFiles);
     this.setState({
       files: addedFiles,
       displayFiles: imgList,
       error,
     });
-  }
-
-  closePreview() {
-    console.log('close');
+    event.preventDefault();
   }
 
   render() {
