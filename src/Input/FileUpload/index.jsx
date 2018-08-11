@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 const ERROR_MESSAGE = 'Some of your file(s) does not match, please re-upload';
-
+const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 
 class ImageUpload extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class ImageUpload extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.closePreview = this.closePreview.bind(this);
   }
 
   handleChange(event) {
@@ -22,7 +23,6 @@ class ImageUpload extends React.Component {
     const { files } = event.target;
     let error = '';
     const numOfFile = files.length;
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     let addedFiles = [];
     // FileList cannot be loop with map so we use pure for loop
     for (let i = 0; i < numOfFile; i++) {
@@ -43,6 +43,7 @@ class ImageUpload extends React.Component {
       return (
         <div key={index} className="container">
           <img alt={file.name} src={file.path} />
+          <span className="close-preview" onClick={this.closePreview}>✖</span>
         </div>
       );
     });
@@ -51,6 +52,10 @@ class ImageUpload extends React.Component {
       displayFiles: imgList,
       error,
     });
+  }
+
+  closePreview() {
+    console.log('close');
   }
 
   render() {
