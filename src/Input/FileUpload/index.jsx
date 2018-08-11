@@ -10,27 +10,33 @@ class ImageUpload extends React.Component {
 
     this.state = {
       files: [],
+      displayFiles: [],
       error: null,
-      isUploaded: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
+    const storedFiles = this.state.files;
     const { files } = event.target;
     let error = null;
     const numOfFile = files.length;
     const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-    let previewFiles = [];
+    let addedFiles = [];
     for (let i = 0; i < numOfFile; i++) {
-      previewFiles[i] = {
+      addedFiles[i] = {
         file: files[i],
         name: files[i].name,
         path: URL.createObjectURL(files[i]),
       };
     };
-    const imgList = previewFiles.map((file, index) => {
+    // Should improve
+    if (this.state.files.length > 0) {
+      addedFiles = storedFiles.concat(addedFiles);
+    }
+    console.log(addedFiles);
+    const imgList = addedFiles.map((file, index) => {
       if (!allowedExtensions.exec(file.name)) {
         error = ERROR_MESSAGE;
         return null;
@@ -42,22 +48,23 @@ class ImageUpload extends React.Component {
       );
     });
     this.setState({
-      files: imgList,
-      isUploaded: true,
+      files: addedFiles,
+      displayFiles: imgList,
       error,
     });
   }
 
   render() {
-    const { files, isUploaded, error } = this.state;
+    const { displayFiles, error } = this.state;
     return (
       <div>
         <input
           id="img-upload-input" type="file" onChange={this.handleChange}
-          multiple data-filetype="jpg|jpeg|png" />
-        {!isUploaded && <label className="upload-label" htmlFor="img-upload-input" >+</label>}
+          multiple data-filetype="jpg|jpeg|png"
+        />
         <div className="wrapper">
-          {files}
+          {displayFiles}
+          <label className="upload-label" htmlFor="img-upload-input" >+</label>
         </div>
         {error && <p className="error">{error}</p>}
       </div>
