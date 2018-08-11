@@ -36,7 +36,6 @@ class ImageUpload extends React.Component {
         path: URL.createObjectURL(files[i]),
       };
     };
-    // Should improve
     if (this.state.files.length > 0) {
       addedFiles = storedFiles.concat(addedFiles);
     }
