@@ -20,11 +20,16 @@ class ImageUpload extends React.Component {
   handleChange(event) {
     const storedFiles = this.state.files;
     const { files } = event.target;
-    let error = null;
+    let error = '';
     const numOfFile = files.length;
     const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     let addedFiles = [];
+    // FileList cannot be loop with map so we use pure for loop
     for (let i = 0; i < numOfFile; i++) {
+      if (!allowedExtensions.exec(files[i].name)) {
+        error = ERROR_MESSAGE;
+        break;
+      }
       addedFiles[i] = {
         file: files[i],
         name: files[i].name,
@@ -35,12 +40,7 @@ class ImageUpload extends React.Component {
     if (this.state.files.length > 0) {
       addedFiles = storedFiles.concat(addedFiles);
     }
-    console.log(addedFiles);
     const imgList = addedFiles.map((file, index) => {
-      if (!allowedExtensions.exec(file.name)) {
-        error = ERROR_MESSAGE;
-        return null;
-      }
       return (
         <div key={index} className="container">
           <img alt={file.name} src={file.path} />
