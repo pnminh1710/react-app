@@ -1,0 +1,54 @@
+.wrapper {
+  margin: 32px auto;
+  display: flex;
+  justify-content: center;
+}
+
+#img-upload-input {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.upload-label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.upload-label:hover {
+  background-color: red;
+}
+
+.upload-label:focus {
+  outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.container {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  border-radius: 10%;
+  overflow: hidden;
+  border: 4px dashed #111;
+  opacity: 0.6;
+  margin-left: 8px;
+}
+
+.container:hover {
+  opacity: 1;
+}
+
+.container img {
+min-width: 100px;
+max-width: none;
+height: 100px;
+margin: 0 -100%;
+}
