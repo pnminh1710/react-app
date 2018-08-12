@@ -13,7 +13,7 @@ class ImageUpload extends React.Component {
       files: [],
       displayFiles: [],
       error: null,
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.closePreview = this.closePreview.bind(this);
@@ -47,7 +47,7 @@ class ImageUpload extends React.Component {
     const numOfFile = files.length;
     let addedFiles = [];
     // FileList cannot be loop with map so we use pure for loop
-    for (let i = 0; i < numOfFile; i++) {
+    for (let i = 0; i < numOfFile; i += 1) {
       if (!allowedExtensions.exec(files[i].name)) {
         error = ERROR_MESSAGE;
         break;
@@ -57,7 +57,7 @@ class ImageUpload extends React.Component {
         name: files[i].name,
         path: URL.createObjectURL(files[i]),
       };
-    };
+    }
     if (this.state.files.length > 0) {
       addedFiles = storedFiles.concat(addedFiles);
     }
@@ -80,11 +80,11 @@ class ImageUpload extends React.Component {
         />
         <div className="wrapper">
           {displayFiles}
-          <label className="upload-label" htmlFor="img-upload-input" >+</label>
+          <label className="upload-label" htmlFor="img-upload-input">+</label>
         </div>
         {error && <p className="error">{error}</p>}
       </div>
-    )
+    );
   }
 }
 
