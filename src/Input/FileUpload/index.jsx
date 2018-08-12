@@ -75,8 +75,8 @@ class ImageUpload extends React.Component {
     return (
       <div>
         <input
-          id="img-upload-input" type="file" onChange={this.handleChange}
-          multiple data-filetype="jpg|jpeg|png"
+          id="img-upload-input" type="file" onChangeCapture={this.handleChange}
+          multiple accept="image/*"
         />
         <div className="wrapper">
           {displayFiles}
